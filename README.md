@@ -33,6 +33,9 @@ Landing page moderna e responsiva da **Vertex Consórcios**, voltada para aquisi
 
 ## 🌐 Publicação / Deploy
 
-Este projeto pode ser publicado diretamente com:
-- **GitHub Pages:** Ativado na branch `main` na raiz `/`.
-- **Vercel / Netlify:** Importação com 1 clique a partir deste repositório.
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FAgenteIARag%2Fsitevertex)
+
+Este projeto está pronto para publicação imediata:
+- **GitHub Pages:** Ativo em [https://agenteiarag.github.io/sitevertex/](https://agenteiarag.github.io/sitevertex/)
+- **Vercel:** Clique no botão acima ou importe o repositório em [vercel.com/new](https://vercel.com/new).
+
