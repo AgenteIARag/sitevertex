@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vertex Consórcios - Veículos Pesados</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        #vertex-wrapper {
+            background: #051326;
+            color: #fff;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+        }
+
+        /* Resets seguros */
+        #vertex-wrapper, #vertex-wrapper * {
+            box-sizing: border-box;
+        }
+
+        #vertex-wrapper h1, 
+        #vertex-wrapper h2, 
+        #vertex-wrapper h3, 
+        #vertex-wrapper p, 
+        #vertex-wrapper ul, 
+        #vertex-wrapper li {
+            margin: 0;
+            padding: 0;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        /* Limitador de proporção e largura para telas grandes, desktops e notebooks */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Menu de Navegação */
+        header {
+            background: rgba(5, 19, 38, 0.96);
+            backdrop-filter: blur(12px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 191, 255, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo { font-size: 26px; font-weight: 800; color: #fff; text-decoration: none; }
+        .logo span { color: #00BFFF; }
+
+        .nav-links { display: flex; align-items: center; }
+        .nav-links a {
+            color: #a0b4c8;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            margin-left: 32px;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: #00BFFF; }
+
+        .btn-nav {
+            background: #00BFFF;
+            color: #051326;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            transition: 0.3s;
+            margin-left: 32px;
+        }
+        .btn-nav:hover {
+            background: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 191, 255, 0.25);
+        }
+
+        /* Hero / Banner Principal */
+        .hero {
+            padding-top: 180px;
+            padding-bottom: 100px;
+            min-height: 90vh;
+            background: linear-gradient(rgba(5, 19, 38, 0.88), rgba(5, 19, 38, 0.88)), url('https://portal-arquivos.engeplus.com.br/cache/noticia/0126/0126960/tipos-de-caminhao-para-diferentes-cargas.jpg');
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            transition: background 0.5s ease-in-out;
+        }
+        .hero-content { max-width: 800px; }
+        .badge {
+            display: inline-block;
+            background: #1a3a5c;
+            color: #00BFFF;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border: 1px solid rgba(0, 191, 255, 0.2);
+        }
+        h1 {
+            font-size: clamp(32px, 5vw, 54px); /* Tipografia fluida */
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 24px;
+            color: #fff;
+        }
+        h1 span { color: #00BFFF; }
+        .hero-text { color: #a0b4c8; font-size: 18px; line-height: 1.75; margin-bottom: 40px; }
+        .btn-primary { background: #00BFFF; color: #051326; padding: 18px 36px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 16px; display: inline-block; transition: 0.3s; border: none; cursor: pointer; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 191, 255, 0.3); }
+
+        /* Logos de Parceiros */
+        .logos { background: #fff; padding: 45px 0; text-align: center; }
+        .logos p { color: #7a8b9c; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+        .logo-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; opacity: 0.75; filter: grayscale(1); }
+        .logo-grid span { font-weight: 800; color: #051326; font-size: 14px; letter-spacing: 1px; }
+
+        /* Esteira de Imagens Reais de Veículos (6 Itens Únicos sem Repetição) */
+        .marquee-container {
+            overflow: hidden;
+            background: #040f1f;
+            padding: 50px 0;
+            border-top: 1px solid rgba(0, 191, 255, 0.1);
+            border-bottom: 1px solid rgba(0, 191, 255, 0.1);
+        }
+        .marquee-title {
+            text-align: center;
+            color: #00BFFF;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            margin-bottom: 25px;
+        }
+        .marquee-track {
+            display: flex;
+            width: calc(310px * 12);
+            animation: scrollMarquee 38s linear infinite;
+        }
+        .marquee-track:hover { animation-play-state: paused; }
+        .marquee-item {
+            width: 280px;
+            height: 180px;
+            margin: 0 15px;
+            border-radius: 12px;
+            background-size: cover;
+            background-position: center;
+            border: 2px solid rgba(0, 191, 255, 0.15);
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .marquee-label {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(5, 19, 38, 0.85);
+            padding: 8px 12px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #00BFFF;
+        }
+        @keyframes scrollMarquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-310px * 6)); }
+        }
+
+        /* Segmentos de Atuação */
+        .section { padding: 100px 0; }
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .section-header .label { color: #00BFFF; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+        .section-header h2 { font-size: clamp(26px, 4vw, 38px); font-weight: 800; margin-bottom: 18px; }
+        .section-header h2 span { color: #00BFFF; }
+        .section-header p { color: #a0b4c8; font-size: 16px; line-height: 1.65; }
+
+        .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .card {
+            background: #071c38;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 191, 255, 0.1);
+            transition: 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 191, 255, 0.35);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        .card-img {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+        }
+        .card-body { padding: 28px; flex-grow: 1; }
+        .card-tag { color: #00BFFF; font-size: 11px; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; }
+        .card-title { font-size: 22px; font-weight: 800; margin-bottom: 12px; color: #fff; }
+        .card-text { color: #a0b4c8; font-size: 14px; line-height: 1.6; }
+
+        /* Simulador Inteligente */
+        .simulator-container {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        /* Coluna Esquerda: Configure sua simulação (Fundo Branco Padrão do Print) */
+        .sim-inputs { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 25px; 
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 40px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            color: #334155;
+        }
+        .sim-inputs h3 {
+            font-size: 22px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 5px;
+        }
+        .sim-group { display: flex; flex-direction: column; gap: 10px; }
+        .sim-label-container { display: flex; justify-content: space-between; align-items: center; }
+        .sim-label { font-size: 15px; font-weight: 700; color: #1e293b; }
+        
+        .sim-val-badge {
+            background: #f0f9ff;
+            color: #00BFFF;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            border: 1px solid rgba(0, 191, 255, 0.2);
+        }
+        
+        /* Sliders no Fundo Branco */
+        input[type=range].range-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 24px;
+            background: transparent;
+            outline: none;
+        }
+        input[type=range].range-slider::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: #cbd5e1; /* Trilha cinza claro */
+            border-radius: 5px;
+        }
+        input[type=range].range-slider::-moz-range-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: #cbd5e1;
+            border-radius: 5px;
+        }
+        input[type=range].range-slider::-webkit-slider-thumb {
+            height: 22px;
+            width: 22px;
+            border-radius: 50%;
+            background: #00BFFF;
+            border: 3px solid #fff;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -8px; 
+            box-shadow: 0 4px 10px rgba(0, 191, 255, 0.35);
+        }
+        input[type=range].range-slider::-moz-range-thumb {
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #00BFFF;
+            border: 3px solid #fff;
+            cursor: pointer;
+        }
+
+        /* Grade de Prazos Exata (Botões Fundo Branco) */
+        .term-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 5 colunas para caber os 10 botões */
+            gap: 10px;
+            margin-top: 5px;
+        }
+        .term-btn {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            color: #64748b;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+            transition: 0.2s;
+            text-align: center;
+        }
+        .term-btn.active {
+            background: #00BFFF;
+            color: #ffffff;
+            border-color: #00BFFF;
+            box-shadow: 0 4px 10px rgba(0, 191, 255, 0.25);
+        }
+        .term-btn:hover:not(.active) {
+            border-color: #00BFFF;
+            color: #00BFFF;
+        }
+
+        /* Select de Tipo de bem adaptado */
+        .sim-select {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 14px 16px;
+            border-radius: 8px;
+            color: #1e293b;
+            font-size: 15px;
+            outline: none;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+        }
+
+        /* Formulário no fundo branco */
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 15px; border-top: 1px solid #e2e8f0; padding-top: 20px; }
+        .form-col-full { grid-column: span 2; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        .form-group label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b; }
+        .form-input {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 14px 16px;
+            border-radius: 8px;
+            color: #0f172a;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+        }
+        .form-input:focus { border-color: #00BFFF; background: #fff; }
+
+        /* Botão Calcular Simulação com Ícone */
+        .btn-calcular-sim {
+            width: 100%;
+            background: #00BFFF;
+            color: #ffffff;
+            border: none;
+            padding: 18px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(0, 191, 255, 0.3);
+        }
+        .btn-calcular-sim:hover {
+            background: #051326;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(5, 19, 38, 0.25);
+        }
+
+        /* Coluna Direita: Resumo da Simulação (Azul Escuro Real) */
+        .sim-results {
+            background: linear-gradient(145deg, #051326, #071c38);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(0, 191, 255, 0.15);
+            border-top: 4px solid #00BFFF; /* Linha de realce idêntica à referência */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-self: stretch;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
+        }
+        .results-header { font-size: 18px; font-weight: 800; color: #00BFFF; margin-bottom: 25px; display: flex; align-items: center; gap: 8px; }
+        .results-main-value { font-size: clamp(32px, 4vw, 44px); font-weight: 800; color: #00BFFF; margin-bottom: 8px; text-align: center; }
+        
+        .results-details { border-top: 1px dashed rgba(255, 255, 255, 0.15); border-bottom: 1px dashed rgba(255, 255, 255, 0.15); padding: 24px 0; margin-bottom: 30px; display: flex; flex-direction: column; gap: 16px; }
+        .results-row { display: flex; justify-content: space-between; font-size: 14px; }
+        .results-row span:first-child { color: #a0b4c8; }
+        .results-row span:last-child { font-weight: 700; color: #fff; }
+        
+        /* Painel Escuro Interno das Parcelas */
+        .parcela-box-panel {
+            background: #031020;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            border: 1px solid rgba(0, 191, 255, 0.1);
+            margin-bottom: 20px;
+        }
+        .btn-simulator {
+            width: 100%;
+            background: #00BFFF;
+            color: #051326;
+            border: none;
+            padding: 18px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-simulator:hover { background: #fff; transform: translateY(-2px); }
+
+        /* Diferenciais */
+        .dif-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .dif-card { padding: 32px; background: #071c38; border-radius: 16px; border-left: 4px solid #00BFFF; transition: 0.3s; }
+        .dif-icon { font-size: 32px; margin-bottom: 20px; }
+        .dif-title { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+        .dif-text { color: #a0b4c8; font-size: 14px; line-height: 1.6; }
+
+        /* FAQ */
+        .faq-section { background: #040f1f; }
+        .faq-grid { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+        .faq-item { background: #071c38; border-radius: 12px; border: 1px solid rgba(0, 191, 255, 0.08); padding: 24px; cursor: pointer; transition: 0.3s; }
+        .faq-question { display: flex; justify-content: space-between; align-items: center; font-size: 16px; font-weight: 700; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; color: #a0b4c8; font-size: 14px; line-height: 1.6; margin-top: 0; }
+        .faq-item.active .faq-answer { max-height: 150px; margin-top: 15px; }
+        .faq-icon-toggle { transition: transform 0.3s; font-size: 18px; color: #00BFFF; }
+        .faq-item.active .faq-icon-toggle { transform: rotate(45deg); }
+
+        /* CTA Final */
+        .cta-final { background: #00BFFF; padding: 80px 0; }
+        .cta-container { display: flex; justify-content: space-between; align-items: center; }
+        .cta-content { max-width: 65%; }
+        .cta-content h2 { color: #051326; font-size: clamp(24px, 4vw, 36px); font-weight: 800; }
+        .cta-content p { color: #051326; font-size: 18px; font-weight: 600; margin-top: 12px; }
+
+        /* Footer */
+        footer { background: #030a14; padding: 80px 0 30px; font-size: 14px; color: #a0b4c8; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+        .footer-col h5 { color: #fff; font-size: 16px; font-weight: 700; margin-bottom: 20px; }
+        .footer-col p { line-height: 1.65; margin-bottom: 15px; }
+        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+        .footer-col ul a { color: #a0b4c8; text-decoration: none; transition: 0.3s; }
+        .footer-col ul a:hover { color: #00BFFF; }
+        .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 25px; text-align: center; font-size: 12px; color: #5f748c; }
+
+        /* Botão do WhatsApp Flutuante exclusivo para Mobile */
+        .btn-whatsapp-float {
+            display: none;
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #25d366;
+            color: #fff;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            z-index: 9999;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .btn-whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* Media Queries de Adaptabilidade (Responsividade Absoluta) */
+        @media (max-width: 1024px) {
+            .nav-links, .btn-nav { display: none; }
+            .simulator-container { grid-template-columns: 1fr; padding: 10px; gap: 30px; }
+            .card-grid, .dif-grid { grid-template-columns: repeat(2, 1fr); }
+            .cta-container { flex-direction: column; text-align: center; gap: 30px; }
+            .cta-content { max-width: 100%; }
+        }
+
+        @media (max-width: 768px) {
+            .header-container { padding: 15px 20px; }
+            .hero { padding-top: 120px !important; padding-bottom: 60px !important; text-align: center; }
+            h1 { font-size: 28px !important; }
+            .section-header h2 { font-size: 26px !important; }
+            .card-grid, .dif-grid { grid-template-columns: 1fr !important; }
+            .form-grid { grid-template-columns: 1fr !important; }
+            .form-col-full { grid-column: span 1 !important; }
+            .section { padding: 50px 0 !important; }
+            
+            /* Ajuste de Botões de Prazo no Celular para não espremer textos */
+            .term-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 8px !important; }
+            .term-btn { padding: 10px 5px !important; font-size: 12px !important; }
+            
+            /* Adaptação do Carrossel de Imagens no Celular (Prevenção de quebra lateral) */
+            .marquee-track { width: calc(230px * 12) !important; animation: scrollMarqueeMobile 30s linear infinite !important; }
+            .marquee-item { width: 200px !important; height: 130px !important; margin: 0 15px !important; }
+            @keyframes scrollMarqueeMobile {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(calc(-230px * 6)); }
+            }
+
+            .sim-inputs, .sim-results { padding: 24px !important; }
+            .simulator-container { gap: 20px !important; }
+            .btn-whatsapp-float { display: flex; } /* Ativa botão flutuante no Celular */
+        }
+    </style>
+</head>
+<body>
+
+<div id="vertex-wrapper">
+    <!-- Botão Flutuante de WhatsApp para Celulares -->
+    <a href="https://api.whatsapp.com/send?phone=5575991383550&text=Ol%C3%A1!%20Gostaria%20de%20receber%20atendimento%20personalizado%20para%20ve%C3%ADculos%20pesados." target="_blank" class="btn-whatsapp-float">💬</a>
+
+    <!-- Cabeçalho (Header) -->
+    <header>
+        <div class="container">
+            <div class="header-container">
+                <a href="#" class="logo" id="header-logo">VERTEX<span>.</span></a>
+                <nav class="nav-links">
+                    <a href="#frota">Frota</a>
+                    <a href="#segmentos">Segmentos</a>
+                    <a href="#simulador">Simulador</a>
+                    <a href="#vantagens">Diferenciais</a>
+                    <a href="#faq">Dúvidas</a>
+                    <a href="#simulador" class="btn-nav">Simular Crédito</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner Principal (Hero) -->
+    <section class="hero" id="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="badge">Autorizada Âncora Consórcios</div>
+                <h1>Consórcio de Veículos Pesados <span>sem juros</span> e com crédito até R$ 3 milhões.</h1>
+                <p class="hero-text">Planejamento financeiro inteligente para caminhões, tratores, máquinas agrícolas e utilitários pesados. Parcelas que cabem no seu negócio.</p>
+                <a href="#simulador" class="btn-primary">Simular meu crédito agora →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Logos -->
+    <section class="logos">
+        <div class="container">
+            <p>Marcas e parceiros atendidos</p>
+            <div class="logo-grid">
+                <span>SCANIA</span> <span>VOLVO</span> <span>MERCEDES-BENZ</span> <span>JOHN DEERE</span> <span>YANMAR</span> <span>BMW</span> <span>ITAÚ</span> <span>SANTANDER</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeria de Imagens Reais (Frota) Sem Duplicações / Repetições Visuais -->
+    <section class="marquee-container" id="frota">
+        <div class="marquee-title">GALERIA DE VEÍCULOS PESADOS VERTEX</div>
+        <div class="marquee-track" id="marquee-track">
+            <div class="marquee-item" style="background-image: url('https://portal-arquivos.engeplus.com.br/cache/noticia/0126/0126960/tipos-de-caminhao-para-diferentes-cargas.jpg');">
+                <div class="marquee-label">Caminhão de Carga</div>
+            </div>
+            <div class="marquee-item" style="background-image: url('https://portalmaquinasagricolas.com.br/wp-content/uploads/2023/07/A-New-Holland-vai-apresentar-na-Agrishow-as-soluc%CC%A7o%CC%83es-de-telemetria-para-a-fami%CC%81lia-de-tratores-TL5_642236-scaled.jpg');">
+                <div class="marquee-label">Trator Agrícola</div>
+            </div>
+            <div class="marquee-item" style="background-image: url('https://blog.toyotasulpar.com.br/wp-content/uploads/2026/01/Toyota-Hiace-Furgao-2026-4.jpg');">
+                <div class="marquee-label">Van Utilitária</div>
+            </div>
+            <div class="marquee-item" style="background-image: url('https://img.magnific.com/fotos-gratis/caminhao-trabalhando-no-campo-durante-um-dia-ensolarado_23-2151976950.jpg?semt=ais_hybrid&w=740&q=80');">
+                <div class="marquee-label">Trator de Solo</div>
+            </div>
+            <div class="marquee-item" style="background-image: url('https://di-uploads-pod13.dealerinspire.com/mercedesbenzofbonitasprings/uploads/2022/03/LOUNGE-EXTERIOR-04-1024x683.jpeg');">
+                <div class="marquee-label">Furgão Comercial</div>
+            </div>
+            <div class="marquee-item" style="background-image: url('https://www.cobli.co/wp-content/uploads/2021/09/O-aumento-da-procura-por-caminhao-de-bau-pequeno-700x490.jpg');">
+                <div class="marquee-label">Caminhão Baú</div>
+            </div>
+            <!-- Duplicados para loop infinito -->
+            <div class="marquee-item" style="background-image: url('https://portal-arquivos.engeplus.com.br/cache/noticia/0126/0126960/tipos-de-caminhao-para-diferentes-cargas.jpg');">
+                <div class="marquee-label">Caminhão de Carga</div>
+            </div>
+            <div class="marquee-item" style="background-image: url('https://portalmaquinasagricolas.com.br/wp-content/uploads/2023/07/A-New-Holland-vai-apresentar-na-Agrishow-as-soluc%CC%A7o%CC%83es-de-telemetria-para-a-fami%CC%81lia-de-tratores-TL5_642236-scaled.jpg');">
+                <div class="marquee-label">Trator Agrícola</div>
+            </div>
+            <div class="marquee-item" style="background-image: url('https://blog.toyotasulpar.com.br/wp-content/uploads/2026/01/Toyota-Hiace-Furgao-2026-4.jpg');">
+                <div class="marquee-label">Van Utilitária</div>
+            </div>
+            <div class="marquee-item" style="background-image: url('https://img.magnific.com/fotos-gratis/caminhao-trabalhando-no-campo-durante-um-dia-ensolarado_23-2151976950.jpg?semt=ais_hybrid&w=740&q=80');">
+                <div class="marquee-label">Trator de Solo</div>
+            </div>
+            <div class="marquee-item" style="background-image: url('https://di-uploads-pod13.dealerinspire.com/mercedesbenzofbonitasprings/uploads/2022/03/LOUNGE-EXTERIOR-04-1024x683.jpeg');">
+                <div class="marquee-label">Furgão Comercial</div>
+            </div>
+            <div class="marquee-item" style="background-image: url('https://www.cobli.co/wp-content/uploads/2021/09/O-aumento-da-procura-por-caminhao-de-bau-pequeno-700x490.jpg');">
+                <div class="marquee-label">Caminhão Baú</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Segmentos Atendidos -->
+    <section class="section" id="segmentos">
+        <div class="container">
+            <div class="section-header">
+                <div class="label">Segmentos atendidos</div>
+                <h2>Crédito para cada tipo de <span>veículo pesado</span></h2>
+                <p>Seja para ampliar sua transportadora ou modernizar sua lavoura, fornecemos as melhores condições de consórcio sem taxas de juros abusivas.</p>
+            </div>
+            <div class="card-grid">
+                <div class="card" onclick="selectSegmentAndScroll('caminhao')">
+                    <div class="card-img" id="img-card-1" style="background-image: url('https://portal-arquivos.engeplus.com.br/cache/noticia/0126/0126960/tipos-de-caminhao-para-diferentes-cargas.jpg');"></div>
+                    <div class="card-body">
+                        <div class="card-tag">Caminhões</div>
+                        <div class="card-title">Pesados e semipesados</div>
+                        <p class="card-text">Crédito de R$ 150 mil a R$ 3 milhões para caminhões de carga, basculantes, betoneiras e mais.</p>
+                    </div>
+                </div>
+                <div class="card" onclick="selectSegmentAndScroll('trator')">
+                    <div class="card-img" id="img-card-2" style="background-image: url('https://img.magnific.com/fotos-gratis/caminhao-trabalhando-no-campo-durante-um-dia-ensolarado_23-2151976950.jpg?semt=ais_hybrid&w=740&q=80');"></div>
+                    <div class="card-body">
+                        <div class="card-tag">Agrícolas</div>
+                        <div class="card-title">Tratores e colheitadeiras</div>
+                        <p class="card-text">Equipamentos para o campo: tratores, colheitadeiras, pulverizadores e implementos agrícolas.</p>
+                    </div>
+                </div>
+                <div class="card" onclick="selectSegmentAndScroll('utilitario')">
+                    <div class="card-img" id="img-card-3" style="background-image: url('https://di-uploads-pod13.dealerinspire.com/mercedesbenzofbonitasprings/uploads/2022/03/LOUNGE-EXTERIOR-04-1024x683.jpeg');"></div>
+                    <div class="card-body">
+                        <div class="card-tag">Utilitários</div>
+                        <div class="card-title">Vans e utilitários pesados</div>
+                        <p class="card-text">Frotas de vans, micro-ônibus, furgões e utilitários para empresas e transporte de cargas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simulador Dinâmico Adaptado ao Padrão de Referência -->
+    <section class="section" id="simulador">
+        <div class="container">
+            <div class="section-header">
+                <div class="label">Simulador de crédito</div>
+                <h2>Descubra quanto você paga <span>por mês</span></h2>
+            </div>
+            
+            <div class="simulator-container">
+                <!-- Coluna Esquerda: Configure sua simulação (Fundo Branco do Print de Referência) -->
+                <div class="sim-inputs">
+                    <h3>Configure sua simulação</h3>
+                    
+                    <!-- Tipo de bem (Dropdown Select) -->
+                    <div class="sim-group">
+                        <span class="sim-label">Selecione o tipo de bem:</span>
+                        <select id="sim-tipo-bem" class="sim-select" onchange="updateSimulation()">
+                            <option value="caminhao">🚚 Caminhão / Pesado</option>
+                            <option value="trator">🚜 Trator / Agrícola</option>
+                            <option value="utilitario">🚐 Van / Utilitário</option>
+                        </select>
+                    </div>
+
+                    <!-- Valor do Crédito -->
+                    <div class="sim-group">
+                        <div class="sim-label-container">
+                            <span class="sim-label">Valor do Crédito</span>
+                            <span class="sim-val-badge" id="credit-badge">R$ 1.500.000,00</span>
+                        </div>
+                        <input type="range" min="100000" max="3000000" step="50000" value="1500000" class="range-slider" id="credit-slider">
+                        <div style="display:flex; justify-content:space-between; font-size:12px; color:#64748b; margin-top:2px;">
+                            <span>R$ 100.000,00</span>
+                            <span>R$ 3.000.000,00</span>
+                        </div>
+                    </div>
+
+                    <!-- Prazo Desejado (Exatamente as 10 Opções do Print de Referência) -->
+                    <div class="sim-group">
+                        <div class="sim-label-container">
+                            <span class="sim-label">Prazo Desejado</span>
+                            <span class="sim-val-badge" id="term-badge">72 meses</span>
+                        </div>
+                        <div class="term-grid" id="term-btn-grid">
+                            <div class="term-btn" onclick="selectTerm(12)">12m</div>
+                            <div class="term-btn" onclick="selectTerm(24)">24m</div>
+                            <div class="term-btn" onclick="selectTerm(36)">36m</div>
+                            <div class="term-btn" onclick="selectTerm(48)">48m</div>
+                            <div class="term-btn" onclick="selectTerm(60)">60m</div>
+                            <div class="term-btn active" onclick="selectTerm(72)">72m</div>
+                            <div class="term-btn" onclick="selectTerm(84)">84m</div>
+                            <div class="term-btn" onclick="selectTerm(96)">96m</div>
+                            <div class="term-btn" onclick="selectTerm(100)">100m</div>
+                            <div class="term-btn" onclick="selectTerm(120)">120m</div>
+                        </div>
+                    </div>
+
+                    <!-- Entrada / Lance Inicial -->
+                    <div class="sim-group">
+                        <div class="sim-label-container">
+                            <span class="sim-label">Entrada / Lance Inicial</span>
+                            <span class="sim-val-badge" id="lance-badge">R$ 0,00</span>
+                        </div>
+                        <input type="range" min="0" max="1500000" step="10000" value="0" class="range-slider" id="lance-slider">
+                        <div style="display:flex; justify-content:space-between; font-size:12px; color:#64748b; margin-top:2px;">
+                            <span>Sem entrada</span>
+                            <span id="lance-max-label">Até R$ 750.000,00</span>
+                        </div>
+                    </div>
+
+                    <!-- Formulário de Leads Integrado -->
+                    <div class="form-grid">
+                        <div class="form-group form-col-full">
+                            <label for="lead-name">Seu Nome / Razão Social</label>
+                            <input type="text" id="lead-name" class="form-input" placeholder="Ex: Transportadora Silva ou Seu Nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lead-phone">WhatsApp para Contato</label>
+                            <input type="tel" id="lead-phone" class="form-input" placeholder="(00) 90000-0000" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lead-email">E-mail (Opcional)</label>
+                            <input type="email" id="lead-email" class="form-input" placeholder="seuemail@exemplo.com">
+                        </div>
+                    </div>
+
+                    <!-- Botão de Ação Esquerda com Ícone de Calculadora (Igual Referência) -->
+                    <button type="submit" onclick="submitSimForm()" class="btn-calcular-sim">🖩 Calcular Simulação</button>
+                </div>
+
+                <!-- Coluna Direita: Resumo da Simulação (Fundo Azul Escuro do Print de Referência) -->
+                <div class="sim-results">
+                    <h3 class="results-header">📋 Resumo da Simulação</h3>
+                    
+                    <div class="results-details">
+                        <div class="results-row">
+                            <span>Tipo de bem</span>
+                            <span id="res-type">🚚 Caminhão / Pesado</span>
+                        </div>
+                        <div class="results-row">
+                            <span>Crédito desejado</span>
+                            <span id="res-credit" style="color: #fff; font-weight: bold;">R$ 1.500.000,00</span>
+                        </div>
+                        <div class="results-row">
+                            <span>Prazo</span>
+                            <span id="res-term">72 meses (6.0 anos)</span>
+                        </div>
+                        <div class="results-row">
+                            <span>Lance Ofertado</span>
+                            <span id="res-lance">R$ 0,00</span>
+                        </div>
+                        <div class="results-row">
+                            <span>Taxa de administração</span>
+                            <span id="res-taxa">17%</span>
+                        </div>
+                        <div class="results-row">
+                            <span>Fundo de reserva</span>
+                            <span>2%</span>
+                        </div>
+                    </div>
+
+                    <!-- Painel Escuro Interno das Parcelas -->
+                    <div class="parcela-box-panel">
+                        <span style="font-size: 13px; text-transform: uppercase; color: #a0b4c8; letter-spacing: 0.5px; display: block; margin-bottom: 5px;">Parcela estimada</span>
+                        <div class="results-main-value" id="display-installment" style="margin: 0; line-height: 1;">R$ 24.791,67</div>
+                        <span style="font-size: 13px; color: #a0b4c8; display: block; margin-top: 5px;">por mês</span>
+                    </div>
+
+                    <!-- Botão Garantir WhatsApp na base do Resumo -->
+                    <button onclick="submitSimForm()" class="btn-simulator">Garantir Condição pelo WhatsApp →</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Diferenciais -->
+    <section class="section" id="vantagens">
+        <div class="container">
+            <div class="section-header">
+                <div class="label">Diferenciais</div>
+                <h2>Por que escolher a <span class="brand-text">VERTEX</span>?</h2>
+            </div>
+            <div class="dif-grid">
+                <div class="dif-card">
+                    <div class="dif-icon">💰</div>
+                    <div class="dif-title">Economia real</div>
+                    <div class="dif-text">Sem juros, você economiza até 40% em comparação com financiamentos tradicionais.</div>
+                </div>
+                <div class="dif-card">
+                    <div class="dif-icon">📊</div>
+                    <div class="dif-title">Planejamento inteligente</div>
+                    <div class="dif-text">Parcelas fixas que cabem no orçamento da sua empresa, sem surpresas.</div>
+                </div>
+                <div class="dif-card">
+                    <div class="dif-icon">🔒</div>
+                    <div class="dif-title">Segurança total</div>
+                    <div class="dif-text">Autorizada pelo Banco Central. Âncora Consórcios, referência nacional no segmento.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dúvidas Frequentes -->
+    <section class="section faq-section" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <div class="label">Dúvidas Frequentes</div>
+                <h2>Perguntas <span>Comuns</span></h2>
+                <p>Esclareça os principais pontos sobre o funcionamento do nosso consórcio de pesados.</p>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span>Quais os documentos necessários para iniciar a contratação?</span>
+                        <span class="faq-icon-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Para a adesão, o processo é desburocratizado: basta apresentar documentos de identificação pessoal (RG/CPF) ou CNPJ no caso de frotas jurídicas. A análise de crédito robusta ocorre apenas no faturamento da carta.</p>
+                    </div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span>Posso utilizar o consórcio para adquirir pesados seminovos?</span>
+                        <span class="faq-icon-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sim! O crédito pode ser utilizado para aquisição de caminhões, implementos e tratores seminovos, desde que atendam aos requisitos de ano de fabricação e conservação estabelecidos no regulamento do grupo.</p>
+                    </div>
+                </div>
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <span>Como funciona a cobrança de taxas no consórcio?</span>
+                        <span class="faq-icon-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Não existem juros. O que existe é uma Taxa de Administração diluída ao longo de todo o plano (ex: 15% total divididos pelo número de parcelas) e o Fundo de Reserva, garantindo um custo final significativamente menor que o financiamento bancário.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chamada para Ação Final -->
+    <section class="cta-final">
+        <div class="container cta-container">
+            <div class="cta-content">
+                <h2>Pronto para adquirir seu veículo pesado <span>sem juros</span>?</h2>
+                <p>Fale agora com um especialista VERTEX e receba sua simulação personalizada.</p>
+            </div>
+            <a href="#simulador" class="btn-primary" style="background: #051326; color: #fff;">Simular agora →</a>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h5 class="brand-text">VERTEX Consórcios</h5>
+                    <p>Consultoria e inteligência financeira autorizada e homologada pela Âncora Consórcios. Oferecemos planejamento profissional para aquisição de caminhões, tratores e frotas de pesados de forma planejada e sem juros.</p>
+                    <p>Responsabilidade, transparência e segurança jurídica regulamentada pelo Banco Central.</p>
+                </div>
+                <div class="footer-col">
+                    <h5>Links Rápidos</h5>
+                    <ul>
+                        <li><a href="#segmentos">Segmentos Atendidos</a></li>
+                        <li><a href="#simulador">Simulador Online</a></li>
+                        <li><a href="#faq">Dúvidas Frequentes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Atendimento</h5>
+                    <p>E-mail: contato@vertexconsorcios.com.br</p>
+                    <p>Parceiro Autorizado: Âncora Administradora de Consórcios S.A.<br>Regulamentação: Banco Central do Brasil</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 VERTEX Consórcios. Todos os direitos reservados. O consórcio é uma modalidade financeira autorizada e fiscalizada pelo Banco Central do Brasil.</p>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script>
+// Variáveis Globais de Customização
+const VERTEX_CONFIG = {
+    whatsappPhone: '5575991383550', // Telefone de atendimento oficial atualizado
+    brandName: 'VERTEX',
+    taxaAdm: 0.17, // 17% igual referência
+    heroImage: 'https://portal-arquivos.engeplus.com.br/cache/noticia/0126/0126960/tipos-de-caminhao-para-diferentes-cargas.jpg'
+};
+
+const creditSlider = document.getElementById('credit-slider');
+const lanceSlider = document.getElementById('lance-slider');
+const creditBadge = document.getElementById('credit-badge');
+const lanceBadge = document.getElementById('lance-badge');
+const termBadge = document.getElementById('term-badge');
+const displayInstallment = document.getElementById('display-installment');
+
+const resType = document.getElementById('res-type');
+const resCredit = document.getElementById('res-credit');
+const resTerm = document.getElementById('res-term');
+const resLance = document.getElementById('res-lance');
+const resTaxa = document.getElementById('res-taxa');
+
+let selectedTerm = 72; // Padrão igual referência
+
+// Escuta de clique nos cards de segmento para mudar select e rolar de forma fluida
+function selectSegmentAndScroll(segmentType) {
+    const selectEl = document.getElementById('sim-tipo-bem');
+    if (selectEl) {
+        selectEl.value = segmentType;
+    }
+    updateSimulation();
+    const simSection = document.getElementById('simulador');
+    if (simSection) {
+        simSection.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+// Manipulação da seleção de Prazo por botões
+function selectTerm(months) {
+    selectedTerm = months;
+    
+    // Atualiza classes dos botões
+    const buttons = document.querySelectorAll('.term-btn');
+    buttons.forEach(btn => {
+        if (btn.innerText === months + 'm') {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+
+    updateSimulation();
+}
+
+// Máscara de Telefone no Input
+const phoneInput = document.getElementById('lead-phone');
+phoneInput.addEventListener('input', (e) => {
+    let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
+    e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+});
+
+// Cálculo preciso do simulador baseado na referência
+function updateSimulation() {
+    const creditValue = parseFloat(creditSlider.value);
+    const lanceValue = parseFloat(lanceSlider.value);
+    
+    // Força o limite de Lance para no máximo 50% do crédito selecionado
+    const maxLance = creditValue * 0.5;
+    lanceSlider.max = creditValue;
+    document.getElementById('lance-max-label').innerText = 'Até ' + maxLance.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0 });
+    
+    let adjustedLance = lanceValue;
+    if (lanceValue > maxLance) {
+        adjustedLance = maxLance;
+        lanceSlider.value = maxLance;
+    }
+
+    creditBadge.innerText = creditValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0 });
+    lanceBadge.innerText = adjustedLance.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0 });
+    termBadge.innerText = selectedTerm + ' meses';
+
+    // Proporção de anos
+    const yearsValue = (selectedTerm / 12).toFixed(1);
+
+    // Tipo de bem emoji
+    const tipoSelect = document.getElementById('sim-tipo-bem').value;
+    let emojiText = "🚚 Caminhão / Pesado";
+    if (tipoSelect === "trator") emojiText = "🚜 Trator / Agrícola";
+    if (tipoSelect === "utilitario") emojiText = "🚐 Van / Utilitário";
+
+    // Cálculo matemático idêntico ao consórcio Âncora da referência:
+    // O lance ofertado reduz o saldo devedor do crédito.
+    // Total a pagar = (Crédito - Lance) + (Crédito * (Taxa Adm + Fundo Reserva [2%]))
+    const fundoReserva = 0.02; // 2% padrão
+    const creditNet = creditValue - adjustedLance;
+    const totalTaxas = creditValue * (VERTEX_CONFIG.taxaAdm + fundoReserva);
+    const totalComTaxas = creditNet + totalTaxas;
+    const parcelaConsorcio = totalComTaxas / selectedTerm;
+
+    // Atualiza Painel de Resumos
+    resType.innerText = emojiText;
+    resCredit.innerText = creditValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0 });
+    resTerm.innerText = selectedTerm + ' meses (' + yearsValue + ' anos)';
+    resLance.innerText = adjustedLance.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0 });
+    resTaxa.innerText = (VERTEX_CONFIG.taxaAdm * 100) + '%';
+    
+    displayInstallment.innerText = parcelaConsorcio.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 });
+}
+
+// Disparador de submit estruturado para WhatsApp
+function submitSimForm() {
+    const name = document.getElementById('lead-name').value.trim();
+    const phone = document.getElementById('lead-phone').value.trim();
+    const email = document.getElementById('lead-email').value.trim() || 'Não Informado';
+
+    if (!name || !phone) {
+        alert('Por favor, preencha os campos obrigatórios (Seu Nome e WhatsApp) para prosseguir.');
+        return;
+    }
+
+    const creditStr = parseFloat(creditSlider.value).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0 });
+    const lanceStr = parseFloat(lanceSlider.value).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0 });
+    const termStr = selectedTerm + ' meses';
+    const installmentStr = displayInstallment.innerText;
+    const tipoSelect = document.getElementById('sim-tipo-bem').value;
+
+    let tipoBemStr = "Caminhão / Pesado";
+    if (tipoSelect === "trator") tipoBemStr = "Trator / Agrícola";
+    if (tipoSelect === "utilitario") tipoBemStr = "Van / Utilitário";
+
+    const text = `Olá, ` + VERTEX_CONFIG.brandName + `! Acabo de realizar uma simulação de Consórcio de Pesados no site e gostaria de falar com um especialista sobre esta oportunidade.\n\n` +
+                 `*DADOS DO SOLICITANTE:*\n` +
+                 `• *Nome/Razão Social:* ${name}\n` +
+                 `• *WhatsApp:* ${phone}\n` +
+                 `• *E-mail:* ${email}\n\n` +
+                 `*DADOS DA SIMULAÇÃO:*\n` +
+                 `• *Tipo de Bem:* ${tipoBemStr}\n` +
+                 `• *Crédito Pretendido:* ${creditStr}\n` +
+                 `• *Prazo Simulado:* ${termStr}\n` +
+                 `• *Lance/Entrada:* ${lanceStr}\n` +
+                 `• *Parcela Mensal Estimada:* ${installmentStr}\n\n` +
+                 `Fico no aguardo de uma proposta e da verificação dos grupos disponíveis.`;
+
+    const encodedText = encodeURIComponent(text);
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=` + VERTEX_CONFIG.whatsappPhone + `&text=` + encodedText;
+
+    window.open(whatsappUrl, '_blank');
+}
+
+function toggleFaq(element) {
+    element.classList.toggle('active');
+}
+
+creditSlider.addEventListener('input', updateSimulation);
+lanceSlider.addEventListener('input', updateSimulation);
+window.addEventListener('DOMContentLoaded', updateSimulation);
+</script>
+</body>
+</html>
