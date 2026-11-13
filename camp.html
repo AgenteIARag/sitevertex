@@ -50,7 +50,7 @@
             width: 100%;
             max-width: 960px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 16px;
         }
 
         /* Top Bar de Segurança */
@@ -69,9 +69,9 @@
             gap: 8px;
         }
 
-        /* Header focado em conversão (sem menu dispersivo) */
+        /* Header focado em conversão */
         header {
-            padding: 24px 0;
+            padding: 18px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.06);
         }
 
@@ -117,45 +117,7 @@
         /* Seção Principal */
         main {
             flex: 1;
-            padding: 40px 0 60px;
-        }
-
-        .hero-text {
-            text-align: center;
-            max-width: 760px;
-            margin: 0 auto 36px;
-        }
-
-        .badge-pill {
-            display: inline-block;
-            background: rgba(0, 191, 255, 0.12);
-            color: var(--primary);
-            padding: 6px 18px;
-            border-radius: 50px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 18px;
-            border: 1px solid rgba(0, 191, 255, 0.3);
-        }
-
-        h1 {
-            font-size: clamp(26px, 4vw, 40px);
-            font-weight: 800;
-            line-height: 1.25;
-            margin-bottom: 16px;
-            color: #ffffff;
-        }
-
-        h1 span {
-            color: var(--primary);
-        }
-
-        .hero-text p {
-            color: var(--text-muted);
-            font-size: clamp(14px, 2vw, 17px);
-            line-height: 1.6;
+            padding: 24px 0 40px;
         }
 
         /* Container do Formulário */
@@ -163,30 +125,10 @@
             background: #ffffff;
             border-radius: 18px;
             box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(0, 191, 255, 0.2);
-            padding: 30px 24px;
+            padding: 24px 20px;
             color: var(--text-dark);
             position: relative;
             overflow: hidden;
-        }
-
-        .form-card-header {
-            text-align: center;
-            padding-bottom: 20px;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .form-card-header h2 {
-            font-size: 20px;
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 6px;
-        }
-
-        .form-card-header p {
-            font-size: 13px;
-            color: #64748b;
-            font-weight: 500;
         }
 
         /* Espaço do Embed */
@@ -204,8 +146,8 @@
 
         /* Aviso de Privacidade */
         .privacy-notice {
-            margin-top: 20px;
-            padding-top: 16px;
+            margin-top: 16px;
+            padding-top: 14px;
             border-top: 1px solid #f1f5f9;
             text-align: center;
             font-size: 12px;
@@ -216,51 +158,10 @@
             gap: 6px;
         }
 
-        /* Grid de Benefícios / Prova de Autoridade */
-        .trust-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 40px;
-        }
-
-        .trust-item {
-            background: rgba(7, 28, 56, 0.8);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            transition: 0.3s;
-        }
-
-        .trust-item:hover {
-            border-color: rgba(0, 191, 255, 0.4);
-            transform: translateY(-2px);
-        }
-
-        .trust-icon {
-            font-size: 26px;
-            margin-bottom: 10px;
-            display: inline-block;
-        }
-
-        .trust-title {
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: #ffffff;
-        }
-
-        .trust-desc {
-            font-size: 12px;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
         /* Footer */
         footer {
             background: #030a14;
-            padding: 30px 0;
+            padding: 24px 0;
             font-size: 12px;
             color: #64748b;
             text-align: center;
@@ -268,7 +169,7 @@
         }
 
         footer p {
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             line-height: 1.6;
         }
 
@@ -277,38 +178,14 @@
             font-weight: 600;
         }
 
-        /* Botão WhatsApp de Suporte Flutuante */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            background: #25d366;
-            color: #ffffff;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
-            text-decoration: none;
-            z-index: 1000;
-            transition: transform 0.3s;
-        }
-
-        .whatsapp-float:hover {
-            transform: scale(1.1);
-        }
-
         @media (max-width: 768px) {
-            .trust-grid {
-                grid-template-columns: 1fr;
-                gap: 12px;
+            main {
+                padding: 16px 0 30px;
             }
 
             .form-card {
-                padding: 24px 16px;
+                padding: 16px 12px;
+                border-radius: 14px;
             }
 
             .header-badge {
@@ -341,19 +218,8 @@
     <!-- Conteúdo Principal -->
     <main>
         <div class="container">
-            <div class="hero-text">
-                <div class="badge-pill">Campanha Oficial de Análise Prévia</div>
-                <h1>Inicie sua Análise de Crédito para <span>Veículos Pesados sem Juros</span></h1>
-                <p>Planejamento para caminhões, tratores agrícolas e frotas de utilitários com crédito de <strong>R$ 100 mil a R$ 3 milhões</strong>. Preencha os campos abaixo para consultar as melhores cartas disponíveis.</p>
-            </div>
-
             <!-- Card com o Formulário Embedado -->
             <div class="form-card">
-                <div class="form-card-header">
-                    <h2>📋 Formulário de Análise Prévia</h2>
-                    <p>Preenchimento rápido e seguro (leva menos de 1 minuto)</p>
-                </div>
-
                 <!-- CÓDIGO EMBEDADO (AtendeCon) -->
                 <div id="form-embed-iniciar-analise"></div>
                 <script>
@@ -378,25 +244,6 @@
                     <span>🛡️ Seus dados estão seguros e protegidos de acordo com a LGPD.</span>
                 </div>
             </div>
-
-            <!-- Benefícios e Garantias -->
-            <div class="trust-grid">
-                <div class="trust-item">
-                    <span class="trust-icon">💰</span>
-                    <h3 class="trust-title">Zero Taxa de Juros</h3>
-                    <p class="trust-desc">Economia de até 40% em relação aos juros e IOF dos financiamentos bancários convencionais.</p>
-                </div>
-                <div class="trust-item">
-                    <span class="trust-icon">⏱️</span>
-                    <h3 class="trust-title">Prazos de 12 a 120 Meses</h3>
-                    <p class="trust-desc">Planos customizados que se adaptam ao fluxo de caixa e à sazonalidade da sua operação.</p>
-                </div>
-                <div class="trust-item">
-                    <span class="trust-icon">🏛️</span>
-                    <h3 class="trust-title">Segurança Institucional</h3>
-                    <p class="trust-desc">Parceria oficial Âncora Consórcios, com grupos autorizados e regulamentados pelo Banco Central.</p>
-                </div>
-            </div>
         </div>
     </main>
 
@@ -408,11 +255,6 @@
             <p>© 2026 VERTEX Consórcios. Todos os direitos reservados.</p>
         </div>
     </footer>
-
-    <!-- Botão de Suporte WhatsApp -->
-    <a href="https://api.whatsapp.com/send?phone=5575991383550&text=Ol%C3%A1!%20Estou%20na%20p%C3%A1gina%20de%20an%C3%A1lise%20e%20gostaria%20de%20tirar%20uma%20d%C3%BAvida." target="_blank" class="whatsapp-float" title="Falar no WhatsApp">
-        💬
-    </a>
 </div>
 
 </body>
