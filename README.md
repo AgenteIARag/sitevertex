@@ -17,6 +17,10 @@ Landing page moderna e responsiva da **Vertex Consórcios**, voltada para aquisi
   - Layout otimizado para celulares, tablets e desktops.
   - Carrossel infinito de fotos reais dos veículos.
   - Botão flutuante de atendimento para dispositivos móveis.
+- **Página de Campanha com Formulário Embedado (`/analise` / `/camp`):**
+  - Otimizada para o subdomínio `camp.vertexconsorcio.com.br`.
+  - Formulário AtendeCon embedado com redimensionamento responsivo e rastreamento de parâmetros de campanha (UTMs).
+  - Layout limpo focado em alta taxa de conversão para tráfego pago.
 - **Seção de FAQ e Diferenciais:**
   - Accordion dinâmico para dúvidas frequentes.
 

@@ -1,4 +1,28 @@
 {
   "version": 2,
-  "cleanUrls": true
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "has": [
+        {
+          "type": "host",
+          "value": "camp.vertexconsorcio.com.br"
+        }
+      ],
+      "source": "/",
+      "destination": "/analise.html"
+    },
+    {
+      "source": "/analise",
+      "destination": "/analise.html"
+    },
+    {
+      "source": "/camp",
+      "destination": "/analise.html"
+    },
+    {
+      "source": "/iniciar-analise",
+      "destination": "/analise.html"
+    }
+  ]
 }
